@@ -2,7 +2,7 @@
 # If ::create_path global variable is set, the project is created under that path instead of the working dir
 
 # Project specific settings. These must be updated for each project.
-set proj_name "TEMPLATE"
+set proj_name "PmodI2S2"
 
 if {[info exists ::create_path]} {
 	set dest_dir $::create_path
@@ -14,8 +14,8 @@ cd $dest_dir
 
 
 
-set part "xc7a35ticsg324-1L"
-set brd_part "digilentinc.com:arty:part0:1.1"
+set part "xc7a100tcsg324-1"
+set brd_part "digilentinc.com:arty-a7-100:part0:1.0"
 
 # Set the reference directory for source file relative paths (by default the value is script directory path)
 set origin_dir ".."
@@ -80,10 +80,10 @@ add_files -fileset constrs_1 -quiet $src_dir/constraints
 
 # Create 'synth_1' run (if not found)
 if {[string equal [get_runs -quiet synth_1] ""]} {
-  create_run -name synth_1 -part $part -flow {Vivado Synthesis 2015} -strategy "Vivado Synthesis Defaults" -constrset constrs_1
+  create_run -name synth_1 -part $part -flow {Vivado Synthesis 2017} -strategy "Vivado Synthesis Defaults" -constrset constrs_1
 } else {
   set_property strategy "Vivado Synthesis Defaults" [get_runs synth_1]
-  set_property flow "Vivado Synthesis 2015" [get_runs synth_1]
+  set_property flow "Vivado Synthesis 2017" [get_runs synth_1]
 }
 set obj [get_runs synth_1]
 set_property "part" $part $obj
@@ -96,10 +96,10 @@ current_run -synthesis [get_runs synth_1]
 
 # Create 'impl_1' run (if not found)
 if {[string equal [get_runs -quiet impl_1] ""]} {
-  create_run -name impl_1 -part $part -flow {Vivado Implementation 2015} -strategy "Vivado Implementation Defaults" -constrset constrs_1 -parent_run synth_1
+  create_run -name impl_1 -part $part -flow {Vivado Implementation 2017} -strategy "Vivado Implementation Defaults" -constrset constrs_1 -parent_run synth_1
 } else {
   set_property strategy "Vivado Implementation Defaults" [get_runs impl_1]
-  set_property flow "Vivado Implementation 2015" [get_runs impl_1]
+  set_property flow "Vivado Implementation 2017" [get_runs impl_1]
 }
 set obj [get_runs impl_1]
 set_property "part" $part $obj
