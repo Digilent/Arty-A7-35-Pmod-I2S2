@@ -14,8 +14,8 @@ cd $dest_dir
 
 
 
-set part "xc7a100tcsg324-1"
-set brd_part "digilentinc.com:arty-a7-100:part0:1.0"
+set part "xc7a35ticsg324-1L"
+set brd_part "digilentinc.com:arty-a7-35:part0:1.0"
 
 # Set the reference directory for source file relative paths (by default the value is script directory path)
 set origin_dir ".."

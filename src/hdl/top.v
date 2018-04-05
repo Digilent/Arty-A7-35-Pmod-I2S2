@@ -29,7 +29,7 @@ module top (
     output wire rx_mclk,
     output wire rx_sclk,
     output wire rx_lrck,
-    input wire rx_data
+    input  wire rx_data
 );
     wire axis_clk;
     
