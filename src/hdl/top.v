@@ -17,18 +17,21 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module top (
+module top #(
+	parameter NUMBER_OF_SWITCHES = 4,
+	parameter RESET_POLARITY = 0
+) (
     input wire       clk,
-    input wire [3:0] sw,
-    input wire       resetn,
+    input wire [NUMBER_OF_SWITCHES-1:0] sw,
+    input wire       reset,
     
     output wire tx_mclk,
-    output wire tx_sclk,
     output wire tx_lrck,
+    output wire tx_sclk,
     output wire tx_data,
     output wire rx_mclk,
-    output wire rx_sclk,
     output wire rx_lrck,
+    output wire rx_sclk,
     input  wire rx_data
 );
     wire axis_clk;
@@ -43,6 +46,8 @@ module top (
     wire axis_rx_ready;
     wire axis_rx_last;
 
+	wire resetn = (reset == RESET_POLARITY) ? 1'b0 : 1'b1;
+	
     clk_wiz_0 m_clk (
         .clk_in1(clk),
         .axis_clk(axis_clk)
@@ -72,7 +77,10 @@ module top (
         .rx_sdin(rx_data)
     );
     
-    axis_volume_controller m_vc (
+    axis_volume_controller #(
+		.SWITCH_WIDTH(NUMBER_OF_SWITCHES),
+		.DATA_WIDTH(24)
+	) m_vc (
         .clk(axis_clk),
         .sw(sw),
         
